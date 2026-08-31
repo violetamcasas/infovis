@@ -26,8 +26,8 @@
         h1 {
             font-family: 'Inter', sans-serif;
             font-size: 48px;
-            font-weight: 800; /* Estilo bold idéntico al del gráfico */
-            text-align: left; /* Alineado a la izquierda como en la captura */
+            font-weight: 800;
+            text-align: left;
             margin-bottom: 40px;
             color: #000000;
             line-height: 1.15;
@@ -36,7 +36,7 @@
 
         .grafico {
             width: 100%;
-            margin: 0 auto;
+            margin: 0 auto 60px auto;
         }
     </style>
 </head>
@@ -49,14 +49,36 @@
             La pastelería sana es fea: ¿mito o realidad?
         </h1>
 
+        <!-- GRÁFICO FLOURISH -->
         <div class="grafico">
-            <div class="flourish-embed flourish-chart" data-src="visualisation/30106070"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/30106070/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+            <div class="flourish-embed flourish-chart" data-src="visualisation/30106070">
                 <script src="https://public.flourish.studio/resources/embed.js"></script>
                 <noscript>
                     <img 
-                        src="https://public.flourish.studio/visualisation/30106070/thumbnail" 
-                        width="100%" 
+                        src="https://public.flourish.studio/visualisation/30106070/thumbnail"
+                        width="100%"
                         alt="chart visualization"
+                    />
+                </noscript>
+            </div>
+        </div>
+
+        <!-- GRÁFICO DATAWRAPPER -->
+        <div class="grafico">
+            <div style="min-height:353px" id="datawrapper-vis-wbVSL">
+                <script 
+                    type="text/javascript"
+                    defer
+                    src="https://datawrapper.dwcdn.net/wbVSL/embed.js"
+                    charset="utf-8"
+                    data-target="#datawrapper-vis-wbVSL">
+                </script>
+
+                <noscript>
+                    <img
+                        src="https://datawrapper.dwcdn.net/wbVSL/full.png"
+                        alt="¿Lo no saludable siempre es más rico? (Bullet Bars)"
+                        width="100%"
                     />
                 </noscript>
             </div>
@@ -66,3 +88,4 @@
 
 </body>
 </html>
+```
