@@ -3,54 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>La pastelería sana es fea: ¿mito o realidad?</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cantata+One&display=swap" rel="stylesheet">
+
     <style>
-        /* Fondo amarillo/crema para TODA la pantalla */
         body {
-            background-color: #fdf5d8;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 40px 20px;
-            color: #2c1a1d;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 0;
+            background-color: #FFF4B8;
+            font-family: Arial, sans-serif;
+            color: #333333;
         }
 
-        /* Contenedor principal alineado y prolijo */
-        .wrapper {
-            max-width: 850px;
-            width: 100%;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 30px;
         }
 
-        /* Título gigante al inicio */
-        h1.main-title {
-            font-size: 2.8rem;
-            font-weight: 800;
+        h1 {
+            font-family: 'Cantata One', serif;
+            font-size: 52px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 50px;
+            color: #333333;
             line-height: 1.2;
-            color: #2c1a1d;
-            letter-spacing: -1px;
         }
 
-        /* Marco del gráfico sin bordes blancos molestos */
-        .chart-box {
-            background: transparent;
+        .grafico {
             width: 100%;
+            margin: 0 auto;
         }
     </style>
 </head>
+
 <body>
 
-    <div class="wrapper">
-        <h1 class="main-title">La pastelería sana es fea: ¿mito o realidad?</h1>
+    <div class="container">
 
-        <div class="chart-box">
-            <div class="flourish-embed flourish-chart" data-src="visualisation/30106070"><script src="https://public.flourish.studio/resources/embed.js"></script><noscript><img src="https://public.flourish.studio/visualisation/30106070/thumbnail" width="100%" alt="chart visualization" /></noscript></div>
+        <h1>
+            La pastelería sana es fea: ¿mito o realidad?
+        </h1>
+
+        <div class="grafico">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/30106070">
                 <script src="https://public.flourish.studio/resources/embed.js"></script>
+                <noscript>
+                    <img 
+                        src="https://public.flourish.studio/visualisation/30106070/thumbnail" 
+                        width="100%" 
+                        alt="chart visualization"
+                    />
+                </noscript>
             </div>
         </div>
+
     </div>
 
 </body>
