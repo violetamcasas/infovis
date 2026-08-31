@@ -1,8 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width-device-width">
-  <title>La pastelería sana es fea: ¿mito o realidad?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La pastelería sana es fea: ¿mito o realidad?</title>
+    <style>
+        /* Fondo amarillo/crema para TODA la pantalla */
+        body {
+            background-color: #fdf5d8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            color: #2c1a1d;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Contenedor principal alineado y prolijo */
+        .wrapper {
+            max-width: 850px;
+            width: 100%;
+        }
+
+        /* Título gigante al inicio */
+        h1.main-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            color: #2c1a1d;
+            letter-spacing: -1px;
+        }
+
+        /* Marco del gráfico sin bordes blancos molestos */
+        .chart-box {
+            background: transparent;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
+
+    <div class="wrapper">
+        <h1 class="main-title">La pastelería sana es fea: ¿mito o realidad?</h1>
+
+        <div class="chart-box">
+            <div class="flourish-embed flourish-pie" data-src="visualisation/TU_CODIGO_AQUI">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
