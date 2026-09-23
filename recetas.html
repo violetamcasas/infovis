@@ -131,16 +131,26 @@
     </div>
 
     <!-- GRÁFICO RAWGRAPHS -->
-<div class="grafico">
-    <object 
-        type="image/svg+xml" 
-        data="./viz.svg" 
-        style="width: 100%; height: auto; display: block;">
-        <!-- Imagen de respaldo por si el navegador no soporta SVG -->
-        <img src="./viz.png" alt="Gráfico RAWGraphs" style="width: 100%;" />
-    </object>
-</div>
+    <section class="grafico">
+    <h2>Evolución de la puntuación según el tiempo</h2>
 
+    <img src="tiempoxpuntuacion.svg" 
+         alt="Evolución de la puntuación según el tiempo">
+</section>
+
+<style>
+.grafico {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.grafico img {
+    width: 100%;
+    height: auto;
+}
+</style>
 </body>
 </html>
 ```
