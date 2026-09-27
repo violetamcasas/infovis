@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La pastelería saludable es fea, ¿mito o realidad? | InfoVis</title>
+    
+    <!-- Google Fonts: Source Sans 3 (anteriormente Source Sans Pro) & Plus Jakarta Sans para números -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saludable: '#559668',
+                        'saludable-bg': 'rgba(85, 150, 104, 0.1)',
+                        nosaludable: '#D0025F',
+                        'nosaludable-bg': 'rgba(208, 2, 95, 0.1)',
+                        bgWarm: '#f8f7f4',
+                        cardBg: '#ffffff',
+                        borderWarm: '#e6e3dc',
+                        textDark: '#2c2a29',
+                        textMuted: '#6b6661'
+                    },
+                    fontFamily: {
+                        sans: ['"Source Sans 3"', 'Source Sans Pro', 'sans-serif'],
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+            background-color: #f8f7f4;
+            color: #2c2a29;
+            background-image: radial-gradient(#e5e0d8 0.75px, transparent 0.75px);
+            background-size: 24px 24px;
+        }
+
+        .badge-nosaludable {
+            background-color: rgba(208, 2, 95, 0.08);
+            color: #D0025F;
+            border: 1px solid rgba(208, 2, 95, 0.2);
+        }
+
+        .badge-saludable {
+            background-color: rgba(85, 150, 104, 0.1);
+            color: #559668;
+            border: 1px solid rgba(85, 150, 104, 0.25);
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(44, 42, 41, 0.05), 0 2px 6px -1px rgba(44, 42, 41, 0.03);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .card-shadow:hover {
+            box-shadow: 0 12px 30px -4px rgba(44, 42, 41, 0.08), 0 4px 12px -2px rgba(44, 42, 41, 0.04);
+        }
+
+        .number-watermark {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            background: linear-gradient(180deg, rgba(44, 42, 41, 0.12) 0%, rgba(44, 42, 41, 0.02) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tableauPlaceholder iframe {
+            border-radius: 12px !important;
+        }
+
+        /* Glassmorphism navigation bar */
+        .sticky-header {
+            background: rgba(248, 247, 244, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased">
+
+<!-- BARRA DE NAVEGACIÓN SUPERIOR -->
+<header class="sticky-header sticky top-0 z-50 border-b border-borderWarm/80 px-4 py-3">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-stone-200/70 text-stone-700 uppercase">
+                <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i> InfoVis · TP
+            </span>
+            <span class="text-xs font-medium text-textMuted hidden sm:inline">| Visualización de la Información</span>
+        </div>
+
+        <!-- LEYENDA COLOR FIXA -->
+        <div class="flex items-center gap-3 text-xs font-semibold">
+            <span class="flex items-center gap-1.5 badge-saludable px-2.5 py-1 rounded-full">
+                <span class="w-2.5 h-2.5 rounded-full bg-saludable inline-block"></span>
+                Saludable (#559668)
+            </span>
+            <span class="flex items-center gap-1.5 badge-nosaludable px-2.5 py-1 rounded-full">
+                <span class="w-2.5 h-2.5 rounded-full bg-nosaludable inline-block"></span>
+                No Saludable (#D0025F)
+            </span>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow max-w-5xl w-full mx-auto px-4 py-8 md:py-12 space-y-12">
+
+    <!-- HERO SECTION -->
+    <section class="text-center space-y-6 pt-4 pb-2">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/60 text-amber-800 text-xs font-semibold border border-amber-200/80">
+            <i data-lucide="pie-chart" class="w-4 h-4 text-amber-600"></i> Análisis Comparativo de Recetas
+        </div>
+
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold font-heading text-textDark tracking-tight leading-tight max-w-3xl mx-auto">
+            La pastelería saludable es fea, <br class="hidden sm:inline"><span class="underline decoration-nosaludable/40 decoration-wavy underline-offset-8">¿mito o realidad?</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-textMuted max-w-2xl mx-auto font-normal leading-relaxed">
+            Un recorrido analítico a través de datos y puntuaciones para descubrir si comer sano realmente implica sacrificar el placer de lo dulce.
+        </p>
+
+        <!-- KPI CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto pt-6">
+            <div class="bg-cardBg p-5 rounded-2xl border border-borderWarm card-shadow flex flex-col items-center justify-center">
+                <span class="text-3xl md:text-4xl font-extrabold font-heading text-nosaludable">9.0 / 10</span>
+                <span class="text-xs font-semibold text-textMuted uppercase tracking-wider mt-1">Puntuación Promedio Actual</span>
+            </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-borderWarm card-shadow flex flex-col items-center justify-center">
+                <span class="text-3xl md:text-4xl font-extrabold font-heading text-textDark">2020 – 2026</span>
+                <span class="text-xs font-semibold text-textMuted uppercase tracking-wider mt-1">Años de Evolución Evaluados</span>
+            </div>
+            <div class="bg-cardBg p-5 rounded-2xl border border-borderWarm card-shadow flex flex-col items-center justify-center">
+                <span class="text-3xl md:text-4xl font-extrabold font-heading text-saludable">2 Tipos</span>
+                <span class="text-xs font-semibold text-textMuted uppercase tracking-wider mt-1">Saludable vs No Saludable</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEYENDA EXPLICATIVA EXTENDIDA DE COLORES -->
+    <div class="bg-cardBg p-4 rounded-xl border border-borderWarm/80 flex flex-wrap items-center justify-between gap-3 text-sm">
+        <div class="flex items-center gap-2 text-textMuted">
+            <i data-lucide="info" class="w-4 h-4 text-stone-500"></i>
+            <span><strong>Código de color aplicado en las visualizaciones:</strong></span>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="flex items-center gap-2 font-medium">
+                <span class="w-3.5 h-3.5 rounded-full bg-saludable inline-block"></span>
+                <span>Saludables <code class="text-xs bg-stone-100 px-1.5 py-0.5 rounded border border-stone-200">#559668</code></span>
+            </span>
+            <span class="flex items-center gap-2 font-medium">
+                <span class="w-3.5 h-3.5 rounded-full bg-nosaludable inline-block"></span>
+                <span>No Saludables <code class="text-xs bg-stone-100 px-1.5 py-0.5 rounded border border-stone-200">#D0025F</code></span>
+            </span>
+        </div>
+    </div>
+
+    <!-- SECCIÓN 01: RAWGRAPHS -->
+    <section class="bg-cardBg rounded-3xl p-6 md:p-8 border border-borderWarm card-shadow relative overflow-hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-borderWarm pb-4">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-stone-900 text-white font-heading font-bold text-sm flex items-center justify-center">01</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-textMuted">RAWgraphs · Evolución Temporal</span>
+            </div>
+            <span class="text-xs font-medium bg-stone-100 text-stone-600 px-2.5 py-1 rounded-md border border-stone-200">SVG Embed</span>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="text-2xl md:text-3xl font-bold font-heading text-textDark">
+                Primero de todo, ¿con el tiempo se pueden mejorar las recetas?
+            </h2>
+            <p class="text-lg font-semibold text-saludable flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-5 h-5"></i> (spoiler, ¡sí!)
+            </p>
+        </div>
+
+        <!-- CONTENEDOR DEL GRÁFICO RAWGRAPHS -->
+        <div class="bg-stone-50/60 p-3 md:p-4 rounded-2xl border border-stone-200/70 overflow-hidden">
+            <object type="image/svg+xml" data="./tiempoxpuntuacion.svg" style="width:100%; min-height:400px; display:block; border-radius:12px;">
+                <!-- Fallback si el SVG local no existe o falla -->
+                <div class="p-8 text-center text-textMuted space-y-3">
+                    <i data-lucide="image" class="w-10 h-10 mx-auto text-stone-400"></i>
+                    <p class="font-semibold text-stone-700">Cargando gráfico de tiempo vs. puntuación...</p>
+                    <p class="text-xs text-stone-500 max-w-md mx-auto">Asegúrate de tener el archivo <code class="bg-stone-200 px-1 py-0.5 rounded">tiempoxpuntuacion.svg</code> en la misma carpeta del repositorio.</p>
+                </div>
+            </object>
+        </div>
+
+        <!-- TAKEAWAY CALLOUT -->
+        <div class="bg-saludable-bg border-l-4 border-saludable p-4 rounded-r-xl flex items-start gap-3">
+            <i data-lucide="trending-up" class="w-5 h-5 text-saludable shrink-0 mt-0.5"></i>
+            <p class="text-sm md:text-base text-stone-800">
+                <strong>Conclusión clave:</strong> Desde el 2020 hasta ahora, el promedio para ambos tipos de cocina subió hasta alrededor de <strong>9 puntos</strong>. La práctica y el ajuste de proporciones perfeccionaron ambas corrientes.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 02: FLOURISH -->
+    <section class="bg-cardBg rounded-3xl p-6 md:p-8 border border-borderWarm card-shadow relative overflow-hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-borderWarm pb-4">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-stone-900 text-white font-heading font-bold text-sm flex items-center justify-center">02</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-textMuted">Flourish · Distribución del Sabor</span>
+            </div>
+            <span class="text-xs font-medium bg-stone-100 text-stone-600 px-2.5 py-1 rounded-md border border-stone-200">Interactive Chart</span>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="text-2xl md:text-3xl font-bold font-heading text-textDark">
+                Pero, ¿cocinar saludable implica sacrificar sabor?
+            </h2>
+            <p class="text-textMuted text-base">
+                Análisis de la probabilidad de obtener recetas con valoraciones bajas o moderadas según la categoría.
+            </p>
+        </div>
+
+        <!-- EMBED DE FLOURISH -->
+        <div class="bg-white p-2 md:p-4 rounded-2xl border border-stone-200">
+            <div class="flourish-embed flourish-chart" data-src="visualisation/30106070">
+                <script src="https://public.flourish.studio/resources/embed.js"></script>
+                <noscript>
+                    <img src="https://public.flourish.studio/visualisation/30106070/thumbnail" width="100%" alt="chart visualization" />
+                </noscript>
+            </div>
+        </div>
+
+        <!-- DATOS DESTACADOS / TAKEAWAY -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-nosaludable-bg border border-nosaludable/20 p-4 rounded-2xl flex items-center gap-4">
+                <span class="text-3xl font-extrabold font-heading text-nosaludable">25%</span>
+                <span class="text-xs md:text-sm text-stone-700">De las recetas <strong>no saludables</strong> obtuvieron puntuaciones <strong>menores a 7 puntos</strong>.</span>
+            </div>
+            <div class="bg-saludable-bg border border-saludable/20 p-4 rounded-2xl flex items-center gap-4">
+                <span class="text-3xl font-extrabold font-heading text-saludable">30%</span>
+                <span class="text-xs md:text-sm text-stone-700">De las recetas <strong>saludables</strong> se ubicaron <strong>por debajo de 7 puntos</strong>.</span>
+            </div>
+        </div>
+
+        <div class="bg-amber-50 border border-amber-200 p-4 rounded-xl text-xs md:text-sm text-amber-900 flex items-start gap-2.5">
+            <i data-lucide="lightbulb" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+            <span><strong>Dato relevante:</strong> La diferencia entre ambas es de apenas un 5%. Cocinar saludable no castiga el sabor de forma drástica como se suele creer popularmente.</span>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 03: TABLEAU -->
+    <section class="bg-cardBg rounded-3xl p-6 md:p-8 border border-borderWarm card-shadow relative overflow-hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-borderWarm pb-4">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-stone-900 text-white font-heading font-bold text-sm flex items-center justify-center">03</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-textMuted">Tableau · Complejidad vs Puntuación</span>
+            </div>
+            <span class="text-xs font-medium bg-stone-100 text-stone-600 px-2.5 py-1 rounded-md border border-stone-200">Dashboard Viz</span>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="text-2xl md:text-3xl font-bold font-heading text-textDark">
+                Para las recetas saludables, a más complejidad (dificultad y cantidad de ingredientes), ¿más puntuación?
+            </h2>
+            <p class="text-textMuted text-base">
+                Exploración sobre si las preparaciones más elaboradas garantizan un mejor resultado sensorial en pastelería saludable.
+            </p>
+        </div>
+
+        <!-- CONTENEDOR DEL EMBED DE TABLEAU -->
+        <div class="bg-stone-50 p-2 md:p-4 rounded-2xl border border-stone-200 overflow-hidden">
+            <div class='tableauPlaceholder' id='viz1790536357441' style='position: relative; width: 100%; min-height: 400px;'>
+                <noscript>
+                    <a href='#'>
+                        <img alt='Hoja 3 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TP&#47;TPRecetas&#47;Hoja3&#47;1_rss.png' style='border: none' />
+                    </a>
+                </noscript>
+                <object class='tableauViz' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                    <param name='embed_code_version' value='3' />
+                    <param name='site_root' value='' />
+                    <param name='name' value='TPRecetas&#47;Hoja3' />
+                    <param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' />
+                    <param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;TP&#47;TPRecetas&#47;Hoja3&#47;1.png' />
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='language' value='es-ES' />
+                </object>
+            </div>
+            <script type='text/javascript'>
+                var divElement = document.getElementById('viz1790536357441');
+                var vizElement = divElement.getElementsByTagName('object')[0];
+                vizElement.style.width='100%';
+                vizElement.style.height=(divElement.offsetWidth * 0.75) + 'px';
+                var scriptElement = document.createElement('script');
+                scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+                vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+        </div>
+
+        <!-- TAKEAWAY CALLOUT -->
+        <div class="bg-stone-100 border-l-4 border-stone-700 p-4 rounded-r-xl flex items-start gap-3">
+            <i data-lucide="chef-hat" class="w-5 h-5 text-stone-700 shrink-0 mt-0.5"></i>
+            <p class="text-sm md:text-base text-stone-800">
+                <strong>Hallazgo:</strong> La simplicidad suele ganar. Sumar infinidad de sustitutos o pasos complejos en repostería saludable no garantiza una mejor puntuación; muchas veces las preparaciones directas y simples logran los mejores puntajes.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECCIÓN 04: DATAWRAPPER -->
+    <section class="bg-cardBg rounded-3xl p-6 md:p-8 border border-borderWarm card-shadow relative overflow-hidden space-y-6">
+        <div class="flex items-center justify-between border-b border-borderWarm pb-4">
+            <div class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-stone-900 text-white font-heading font-bold text-sm flex items-center justify-center">04</span>
+                <span class="text-xs font-bold uppercase tracking-widest text-textMuted">Datawrapper · Análisis por Tipo de Preparación</span>
+            </div>
+            <span class="text-xs font-medium bg-stone-100 text-stone-600 px-2.5 py-1 rounded-md border border-stone-200">Bullet Bars</span>
+        </div>
+
+        <div class="space-y-2">
+            <h2 class="text-2xl md:text-3xl font-bold font-heading text-textDark">
+                Aunque en general lo no saludable es más rico, ¿siempre conviene?
+            </h2>
+            <p class="text-textMuted text-base">
+                Comparativa directa por categorías específicas de productos de pastelería.
+            </p>
+        </div>
+
+        <!-- CONTENEDOR DEL EMBED DATAWRAPPER -->
+        <div class="bg-white p-2 md:p-4 rounded-2xl border border-stone-200">
+            <div style="min-height:353px" id="datawrapper-vis-wbVSL">
+                <script type="text/javascript" defer src="https://datawrapper.dwcdn.net/wbVSL/embed.js" charset="utf-8" data-target="#datawrapper-vis-wbVSL"></script>
+                <noscript>
+                    <img src="https://datawrapper.dwcdn.net/wbVSL/full.png" alt="¿Lo no saludable siempre es más rico? (Bullet Bars)" />
+                </noscript>
+            </div>
+        </div>
+
+        <!-- TAKEAWAY CALLOUT HIGHLIGHT -->
+        <div class="bg-saludable-bg border border-saludable/30 p-5 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-saludable text-white flex items-center justify-center shrink-0">
+                    <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-stone-900 text-base">¿Dónde gana la opción saludable?</h3>
+                    <p class="text-sm text-stone-700">Para <strong>barritas, panqueques y muffins</strong> conviene cocinar saludable.</p>
+                </div>
+            </div>
+            <span class="badge-saludable px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider self-start md:self-auto">Recomendado</span>
+        </div>
+    </section>
+
+    <!-- CONCLUSIÓN GENERAL / SUMMARY -->
+    <section class="bg-gradient-to-br from-stone-900 to-stone-800 text-white rounded-3xl p-8 md:p-10 shadow-xl space-y-6">
+        <div class="flex items-center gap-2 text-amber-400 font-semibold text-xs tracking-widest uppercase">
+            <i data-lucide="award" class="w-4 h-4"></i> Veredicto Final
+        </div>
+
+        <h2 class="text-3xl md:text-4xl font-extrabold font-heading text-white">
+            Entonces... ¿es un mito o una realidad?
+        </h2>
+
+        <p class="text-stone-300 text-base md:text-lg leading-relaxed font-normal">
+            <strong>Es en gran parte un mito.</strong> Si bien la pastelería tradicional no saludable mantiene picos marginalmente más altos de aceptabilidad en preparaciones de alta complejidad, la evolución de las recetas saludables entre 2020 y 2026 demuestra que ambas han alcanzado un estándar promedio cercano a los <strong>9 puntos</strong>.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-stone-700">
+            <div class="flex items-start gap-3">
+                <i data-lucide="check" class="w-5 h-5 text-saludable shrink-0 mt-1"></i>
+                <p class="text-sm text-stone-300">En formatos cotidianos como <em>barritas, panqueques y muffins</em>, la versión saludable equipara o supera el disfrute sin la carga calórica habitual.</p>
+            </div>
+            <div class="flex items-start gap-3">
+                <i data-lucide="check" class="w-5 h-5 text-saludable shrink-0 mt-1"></i>
+                <p class="text-sm text-stone-300">La experiencia al cocinar y el perfeccionamiento técnico pesan mucho más en el resultado que el tipo de ingrediente usado.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- FOOTER ESTILO GITHUB PAGES / INFOVIS -->
+<footer class="border-t border-borderWarm bg-stone-100/60 mt-16 py-8 px-4 text-center text-xs text-textMuted space-y-3">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+            <i data-lucide="github" class="w-4 h-4"></i>
+            <span>Trabajo Práctico de <strong>Visualización de la Información (InfoVis)</strong></span>
+        </div>
+        <div>
+            <span>Diseñado para GitHub Pages · Paleta <span class="text-saludable font-semibold">#559668</span> & <span class="text-nosaludable font-semibold">#D0025F</span></span>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Inicializar Iconos de Lucide
+    lucide.createIcons();
+</script>
+
+</body>
+</html>
